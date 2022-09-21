@@ -1,0 +1,7 @@
+---
+- hosts: all
+  gather_facts: yes
+  tasks:
+    - include_tasks: universal/setup.yaml
+    - include_tasks: universal/mariadb.yaml
+    - include_tasks: universal/configure_mariadb.yaml 

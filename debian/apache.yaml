@@ -1,0 +1,19 @@
+    - name: Update repositories cache and install "apache2" package
+      ansible.builtin.package:
+        name: apache2
+        update_cache: yes
+        state: present
+      become: yes
+
+    - name: enable service httpd and ensure it is not masked
+      systemd:
+        name: apache2
+        enabled: yes
+        masked: no
+      become: yes
+
+    - name: start apache2
+      ansible.builtin.systemd:
+        state: started
+        name: apache2
+      become: yes

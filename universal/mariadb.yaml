@@ -1,0 +1,27 @@
+    - name: Update repositories cache and install "mariadb" package
+      ansible.builtin.package:
+        name: mariadb-server
+        update_cache: yes
+        state: present
+      become: yes
+
+    - name: enable service mariadb and ensure it is not masked
+      systemd:
+        name: mariadb
+        enabled: yes
+        masked: no
+      become: yes
+
+    - name: start mariadb httpd
+      ansible.builtin.systemd:
+        state: started
+        name: mariadb
+      become: yes
+
+    - name: "Installing pip dependencies"
+      pip:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - ConfigParser
+        - MySQL-python

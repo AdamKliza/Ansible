@@ -1,0 +1,19 @@
+- name: "Set variables"
+  set_fact:
+    mysql_root_password: "password"
+    
+ # mysql_secure_installation
+- name: Update MariaDB root password
+  mysql_user: name=root host={{item}} password="password"
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+    - 192.168.0.140
+
+  # mysql_secure_installation
+- name: Delete anonymous MySQL user
+  mysql_user: name="" host={{item}} state=absent
+  with_items:
+    - localhost
+    - "{{ansible_nodename}}"
