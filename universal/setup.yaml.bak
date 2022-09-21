@@ -11,11 +11,9 @@
       name: setuptools
 
   - name: pip self-update
-    pip:
-        name: pip
-        state: latest
+    shell: "pip install --upgrade pip"
     become: true
-    
+
   - name: Install Python pip
     ansible.builtin.package:
       name: "{{ item }}"
